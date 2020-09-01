@@ -153,8 +153,7 @@ class ListOfAudioPlayers extends StatefulWidget {
 
 class _ListOfAudioPlayersState extends State<ListOfAudioPlayers> {
   List<Map> model = [{'title': 'item',},{'title': 'item2',},{'title': 'item3',},];
-
-
+  
   int _selectedIndex;
 
   onPressed(int i) {
@@ -199,7 +198,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
   // Audio
   FlutterSoundPlayer playerModule = FlutterSoundPlayer();
   Codec _codec = Codec.aacADTS;
-  bool _isAudioPlayer = true;
+  bool _isAudioPlayer = false;
 
   // UI
   Color color = Colors.blue;
@@ -304,7 +303,10 @@ class _AudioPlayerState extends State<AudioPlayer> {
               whenFinished: () {
                 print('Play finished');
                 setState(() {
-                  
+                  // Set a large index to make the parent return false to all. 
+                  // Because 999999 matches with no instances' index.
+                  // Bit of a hack.
+                  widget.onPressed(999999);
                 });
               });
         }
@@ -347,6 +349,9 @@ class _AudioPlayerState extends State<AudioPlayer> {
         if (sliderCurrentPosition < 0.0) {
           sliderCurrentPosition = 0.0;
         }
+        setState(() {
+        
+        });
 
         //DateTime date = new DateTime.fromMillisecondsSinceEpoch(e.position.inMilliseconds, isUtc: true);
         // String txt = DateFormat('mm:ss:SS', 'en_GB').format(date);
